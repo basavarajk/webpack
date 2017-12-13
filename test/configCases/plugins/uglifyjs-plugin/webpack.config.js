@@ -1,5 +1,3 @@
-const webpack = require("../../../../");
-
 module.exports = {
 	node: {
 		__dirname: false,
@@ -15,28 +13,40 @@ module.exports = {
 	output: {
 		filename: "[name].js"
 	},
-	plugins: [
-		new webpack.optimize.UglifyJsPlugin({
-			exclude: [
-				"vendors.js",
-				"extract.js"
-			]
-		}),
-		new webpack.optimize.UglifyJsPlugin({
-			extractComments: true,
-			include: [
-				"extract.js"
-			]
-		}),
-		new webpack.optimize.UglifyJsPlugin({
-			uglifyOptions: {
-				compress: {
-					passes: 2
+	optimization: {
+		minimize: true,
+		minimizer: [
+			{
+				name: "uglifyjs-webpack-plugin",
+				options: {
+					exclude: [
+						"vendors.js",
+						"extract.js"
+					]
 				}
 			},
-			include: [
-				"compress.js"
-			]
-		})
-	]
+			{
+				name: "uglifyjs-webpack-plugin",
+				options: {
+					extractComments: true,
+					include: [
+						"extract.js"
+					]
+				}
+			},
+			{
+				name: "uglifyjs-webpack-plugin",
+				options: {
+					uglifyOptions: {
+						compress: {
+							passes: 2
+						}
+					},
+					include: [
+						"compress.js"
+					]
+				}
+			},
+		]
+	}
 };

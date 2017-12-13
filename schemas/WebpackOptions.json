@@ -287,6 +287,29 @@
       },
       "type": "object"
     },
+    "minimizer": {
+      "oneOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "description": "Node module name to use (will be required and instanciated as plugin)",
+              "type": "string",
+              "minLength": 1
+            },
+            "options": {
+              "description": "Options to pass to the module on instanciation",
+              "type": "object"
+            }
+          }
+        }
+      ]
+    },
     "output": {
       "additionalProperties": false,
       "properties": {
@@ -1278,6 +1301,31 @@
         "portableRecords": {
           "description": "Generate records with relative paths to be able to move the context folder",
           "type": "boolean"
+        },
+        "minimize": {
+          "description": "Enable minimizing the output. Uses optimization.minimizer.",
+          "type": "boolean"
+        },
+        "minimizer": {
+          "description": "Minimizer(s) to use for minimizing the output",
+          "anyOf": [
+            {
+              "$ref": "#/definitions/minimizer"
+            },
+            {
+              "description": "Multiple minimizers to use for minimizing the output",
+              "type": "array",
+              "items": {
+                "description": "Minimizer to use for minimizing the output",
+                "oneOf": [
+                  {
+                    "$ref": "#/definitions/minimizer"
+                  }
+                ]
+              },
+              "minItems": 1
+            }
+          ]
         },
         "nodeEnv": {
           "description": "Set process.env.NODE_ENV to a specific value",

@@ -6,5 +6,12 @@ module.exports = {
 		__dirname: false,
 		__filename: false
 	},
+	optimization: {
+		minimizer: {
+			options: {
+				sourceMap: true
+			}
+		}
+	},
 	devtool: "source-map"
 };

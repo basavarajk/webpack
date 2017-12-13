@@ -11,6 +11,13 @@ module.exports = {
 	output: {
 		filename: "[name].js"
 	},
+	optimization: {
+		minimizer: {
+			options: {
+				sourceMap: true
+			}
+		}
+	},
 	plugins: [
 		new webpack.SourceMapDevToolPlugin({
 			filename: "sourcemaps/[file].map",
